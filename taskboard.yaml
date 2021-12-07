@@ -1,0 +1,494 @@
+openapi: 3.0.3
+info:
+  title: Example Task Board API
+  description: This is a contract first api example for demonstration
+  contact:
+    name: Owner
+    url: http://www.example.com/support
+    email: julian.brown@engineering.digital.dwp.gov.uk
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+paths:
+  /board:
+    get:
+      description: Returns all available task boards
+      tags:
+      - boards
+      responses:
+        200:
+          description: A list of boards.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Board'
+    post:
+      summary: Add a new board
+      operationId: create task board
+      tags:
+      - boards
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Board'
+        required: true
+      responses:
+        201:
+          description: Expected response to a valid creation request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Board'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Modify an existing board
+      operationId: updateBoardById
+      tags:
+      - boards
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Board'
+        required: true
+      responses:
+        200:
+          description: Expected response to a valid update request
+          content: {}
+        400:
+          description: Invalid board Id supplied
+          content: {}
+        404:
+          description: Board not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+      x-codegen-request-body-name: body
+  /board/byName/{boardName}:
+    get:
+      summary: Info for a specific named board (or boards)
+      operationId: showBoardByName
+      tags:
+      - boards
+      parameters:
+      - name: boardName
+        in: path
+        required: true
+        description: The (partial) name of the board to retrieve
+        schema:
+          type: string
+          maxLength: 20
+      responses:
+        200:
+          description: A list of matching boards.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Board'
+        404:
+          description: Board not found
+          content: {}
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body    
+  /board/byOwner/{ownerName}:
+    get:
+      summary: Info for boards owned by an individual
+      operationId: showBoardByOwner
+      tags:
+      - boards
+      parameters:
+      - name: ownerName
+        in: path
+        required: true
+        description: The name of the owners boards to retrieve
+        schema:
+          type: string
+          minLength: 5
+          maxLength: 30
+      responses:
+        200:
+          description: A list of matching boards.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Board'
+        404:
+          description: Board not found
+          content: {}
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body    
+  /board/{boardId}:
+    get:
+      summary: Info for a specific board
+      operationId: showBoardById
+      tags:
+      - boards
+      parameters:
+      - name: boardId
+        in: path
+        required: true
+        description: The id of the board to retrieve
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Board'
+        404:
+          description: Board not found
+          content: {}
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+    delete:
+      summary: Delete a specific board
+      operationId: deleteBoardById
+      tags:
+      - boards
+      parameters:
+      - name: boardId
+        in: path
+        required: true
+        description: The id of the board to delete
+        schema:
+          type: integer
+          format: int32
+      responses:
+        400:
+          description: Invalid board Id supplied
+          content: {}
+        404:
+          description: Board not found
+          content: {}
+  /column:
+    post:
+      summary: Add a column
+      operationId: createNewColumn
+      tags:
+      - columns
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Column'
+        required: true
+      responses:
+        200:
+          description: Expected response to create request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Column'
+    put:
+      summary: Update a column
+      operationId: updateColumnById
+      tags:
+      - columns
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Column'
+        required: true
+      responses:
+        200:
+          description: Expected response to a valid update request
+          content: {}
+        400:
+          description: Invalid column Id supplied
+          content: {}
+        404:
+          description: Column not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+      x-codegen-request-body-name: body
+  /column/byBoard/{boardId}:
+    get:
+      summary: Column info for a specific board
+      operationId: getColumnByBoardId
+      tags:
+      - columns
+      parameters:
+      - name: boardId
+        in: path
+        required: true
+        description: the id of the board to find columns against
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: Expected response to a request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Column'
+        404:
+          description: Board not found
+          content: {}
+  /column/{columnId}:
+    get:
+      summary: Info for a specific column
+      operationId: getColumnById
+      tags:
+      - columns
+      parameters:
+      - name: columnId
+        in: path
+        required: true
+        description: the id of the column to find
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: Expected response to a request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Column'
+        404:
+          description: Column not found
+          content: {}
+    delete:
+      summary: Delete a specific column
+      operationId: deleteColumnById
+      tags:
+      - columns
+      parameters:
+      - name: columnId
+        in: path
+        required: true
+        description: the id of the column to delete
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: Expected response to a delete request
+          content: {}
+        404:
+          description: Column not found
+          content: {}
+  /swimlane:
+    post:
+      summary: Add a swimlane
+      operationId: createNewSwimlane
+      tags:
+      - swimlanes
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Swimlane'
+        required: true
+      responses:
+        200:
+          description: Expected response to create request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Swimlane'
+    put:
+      summary: Update a swimlane
+      operationId: updateSwimlaneById
+      tags:
+      - swimlanes
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Swimlane'
+        required: true
+      responses:
+        200:
+          description: Expected response to a valid update request
+          content: {}
+        400:
+          description: Invalid swimlaneId supplied
+          content: {}
+        404:
+          description: Swimlane not found
+          content: {}
+        405:
+          description: Validation error
+          content: {}
+      x-codegen-request-body-name: body
+  /swimlane/byBoard/{boardId}:
+    get:
+      summary: Column info for a specific board
+      operationId: getSwimlaneByBoardId
+      tags:
+      - swimlanes
+      parameters:
+      - name: boardId
+        in: path
+        required: true
+        description: the id of the board to find swimlanes against
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: Expected response to a request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Swimlane'
+        404:
+          description: Board not found
+          content: {}
+  /swimlane/{swimlaneId}:
+    get:
+      summary: Info for a specific swimlane
+      operationId: getSwimlanenById
+      tags:
+      - swimlanes
+      parameters:
+      - name: swimlaneId
+        in: path
+        required: true
+        description: the id of the swimlane to find
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: Expected response to a request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Swimlane'
+        404:
+          description: Swimlane not found
+          content: {}
+    delete:
+      summary: Delete a specific swimlane
+      operationId: deleteSwimlaneById
+      tags:
+      - swimlanes
+      parameters:
+      - name: swimlaneId
+        in: path
+        required: true
+        description: the id of the swimlane to delete
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: Expected response to a delete request
+          content: {}
+        404:
+          description: Swimlane not found
+          content: {}
+components:
+  schemas:
+    Board:
+      type: object
+      properties:
+        boardId:
+          type: integer
+          format: int32
+        boardName:
+          type: string
+          minLength: 5
+          maxLength: 20
+        boardOwner:
+          type: string
+          minLength: 5
+          maxLength: 30
+      required:
+      - boardName
+        boardOwner
+    Column:
+      type: object
+      properties:
+        columnId:
+          type: integer
+          format: int32
+        boardId:
+          type: integer
+          format: int32
+        columnName:
+          type: string
+          minLength: 5
+          maxLength: 30
+        columnPriority:
+          type: integer
+          minimum: 0
+          maximum: 100
+      required:
+      - boardId
+        columnName
+        columnPriority
+    Swimlane:
+      type: object
+      properties:
+        swimlaneId:
+          type: integer
+          format: int32
+        boardId:
+          type: integer
+          format: int32
+        swimlaneName:
+          type: string
+          minLength: 5
+          maxLength: 30
+        swimlanePriority:
+          type: integer
+          minimum: 0
+          maximum: 100
+      required:
+      - boardId
+        swimlaneName
+        swimlanePriority
+    Error:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

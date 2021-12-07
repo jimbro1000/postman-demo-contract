@@ -1,0 +1,1847 @@
+{
+	"info": {
+		"_postman_id": "d4c7f16a-b0e8-43f7-8f45-9ec48a10d601",
+		"name": "Example Task Board API",
+		"description": "This is a contract first api example for demonstration\n\nContact Support:\n Name: Owner\n Email: julian.brown@engineering.digital.dwp.gov.uk",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "board",
+			"item": [
+				{
+					"name": "{board Id}",
+					"item": [
+						{
+							"name": "Info for a specific board",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/board/:boardId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"board",
+										":boardId"
+									],
+									"variable": [
+										{
+											"key": "boardId",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Expected response to a valid request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/board/:boardId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"board",
+												":boardId"
+											],
+											"variable": [
+												{
+													"key": "boardId",
+													"value": "13323277",
+													"description": "(Required) The id of the board to retrieve"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"boardId\": 39545275,\n \"boardName\": \"incididunt\",\n \"boardOwner\": \"Lorem par\"\n}"
+								},
+								{
+									"name": "Board not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/board/:boardId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"board",
+												":boardId"
+											],
+											"variable": [
+												{
+													"key": "boardId",
+													"value": "13323277",
+													"description": "(Required) The id of the board to retrieve"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "unexpected error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/board/:boardId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"board",
+												":boardId"
+											],
+											"variable": [
+												{
+													"key": "boardId",
+													"value": "13323277",
+													"description": "(Required) The id of the board to retrieve"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"code\": 2413984,\n \"message\": \"culpa sint\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete a specific board",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/board/:boardId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"board",
+										":boardId"
+									],
+									"variable": [
+										{
+											"key": "boardId",
+											"value": "13323277",
+											"description": "(Required) The id of the board to delete"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Invalid board Id supplied",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/board/:boardId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"board",
+												":boardId"
+											],
+											"variable": [
+												{
+													"key": "boardId",
+													"value": "13323277",
+													"description": "(Required) The id of the board to delete"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Board not found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/board/:boardId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"board",
+												":boardId"
+											],
+											"variable": [
+												{
+													"key": "boardId",
+													"value": "13323277",
+													"description": "(Required) The id of the board to delete"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "/board",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/board",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"board"
+							]
+						},
+						"description": "Returns all available task boards"
+					},
+					"response": [
+						{
+							"name": "A list of boards.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/board",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"board"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"boardId\": 43641279,\n  \"boardName\": \"incididunt\",\n  \"boardOwner\": \"eu est\"\n },\n {\n  \"boardId\": -67145821,\n  \"boardName\": \"laboris labore\",\n  \"boardOwner\": \"Excepteur veniam sit\"\n }\n]"
+						}
+					]
+				},
+				{
+					"name": "Add a new board",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"boardId\": 39545275,\n    \"boardName\": \"incididunt\",\n    \"boardOwner\": \"Lorem par\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/board",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"board"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Expected response to a valid creation request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"boardId\": 39545275,\n    \"boardName\": \"incididunt\",\n    \"boardOwner\": \"Lorem par\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/board",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"board"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"boardId\": 39545275,\n \"boardName\": \"incididunt\",\n \"boardOwner\": \"Lorem par\"\n}"
+						},
+						{
+							"name": "unexpected error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"boardId\": 39545275,\n    \"boardName\": \"incididunt\",\n    \"boardOwner\": \"Lorem par\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/board",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"board"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 2413984,\n \"message\": \"culpa sint\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Modify an existing board",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"boardId\": 39545275,\n    \"boardName\": \"incididunt\",\n    \"boardOwner\": \"Lorem par\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/board",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"board"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Expected response to a valid update request",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"boardId\": 39545275,\n    \"boardName\": \"incididunt\",\n    \"boardOwner\": \"Lorem par\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/board",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"board"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Invalid board Id supplied",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"boardId\": 39545275,\n    \"boardName\": \"incididunt\",\n    \"boardOwner\": \"Lorem par\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/board",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"board"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Board not found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"boardId\": 39545275,\n    \"boardName\": \"incididunt\",\n    \"boardOwner\": \"Lorem par\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/board",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"board"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Validation error",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"boardId\": 39545275,\n    \"boardName\": \"incididunt\",\n    \"boardOwner\": \"Lorem par\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/board",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"board"
+									]
+								}
+							},
+							"status": "Method Not Allowed",
+							"code": 405,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Info for a specific named board (or boards)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/board/byName/:boardName",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"board",
+								"byName",
+								":boardName"
+							],
+							"variable": [
+								{
+									"key": "boardName",
+									"value": "labore adipis",
+									"description": "(Required) The (partial) name of the board to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "A list of matching boards.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/board/byName/:boardName",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"board",
+										"byName",
+										":boardName"
+									],
+									"variable": [
+										{
+											"key": "boardName",
+											"value": "labore adipis",
+											"description": "(Required) The (partial) name of the board to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"boardId\": 43641279,\n  \"boardName\": \"incididunt\",\n  \"boardOwner\": \"eu est\"\n },\n {\n  \"boardId\": -67145821,\n  \"boardName\": \"laboris labore\",\n  \"boardOwner\": \"Excepteur veniam sit\"\n }\n]"
+						},
+						{
+							"name": "Board not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/board/byName/:boardName",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"board",
+										"byName",
+										":boardName"
+									],
+									"variable": [
+										{
+											"key": "boardName",
+											"value": "labore adipis",
+											"description": "(Required) The (partial) name of the board to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "unexpected error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/board/byName/:boardName",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"board",
+										"byName",
+										":boardName"
+									],
+									"variable": [
+										{
+											"key": "boardName",
+											"value": "labore adipis",
+											"description": "(Required) The (partial) name of the board to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 2413984,\n \"message\": \"culpa sint\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Info for boards owned by an individual",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/board/byOwner/:ownerName",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"board",
+								"byOwner",
+								":ownerName"
+							],
+							"variable": [
+								{
+									"key": "ownerName",
+									"value": "nisi ipsum",
+									"description": "(Required) The name of the owners boards to retrieve"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "A list of matching boards.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/board/byOwner/:ownerName",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"board",
+										"byOwner",
+										":ownerName"
+									],
+									"variable": [
+										{
+											"key": "ownerName",
+											"value": "nisi ipsum",
+											"description": "(Required) The name of the owners boards to retrieve"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"boardId\": 43641279,\n  \"boardName\": \"incididunt\",\n  \"boardOwner\": \"eu est\"\n },\n {\n  \"boardId\": -67145821,\n  \"boardName\": \"laboris labore\",\n  \"boardOwner\": \"Excepteur veniam sit\"\n }\n]"
+						},
+						{
+							"name": "Board not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/board/byOwner/:ownerName",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"board",
+										"byOwner",
+										":ownerName"
+									],
+									"variable": [
+										{
+											"key": "ownerName",
+											"value": "nisi ipsum",
+											"description": "(Required) The name of the owners boards to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "unexpected error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/board/byOwner/:ownerName",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"board",
+										"byOwner",
+										":ownerName"
+									],
+									"variable": [
+										{
+											"key": "ownerName",
+											"value": "nisi ipsum",
+											"description": "(Required) The name of the owners boards to retrieve"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": 2413984,\n \"message\": \"culpa sint\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "column",
+			"item": [
+				{
+					"name": "{column Id}",
+					"item": [
+						{
+							"name": "Info for a specific column",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/column/:columnId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"column",
+										":columnId"
+									],
+									"variable": [
+										{
+											"key": "columnId",
+											"value": "13323277",
+											"description": "(Required) the id of the column to find"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Expected response to a request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/column/:columnId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"column",
+												":columnId"
+											],
+											"variable": [
+												{
+													"key": "columnId",
+													"value": "13323277",
+													"description": "(Required) the id of the column to find"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"columnId\": 70225459,\n \"boardId\": 19594009,\n \"columnName\": \"nostrud\",\n \"columnPriority\": 64\n}"
+								},
+								{
+									"name": "Column not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/column/:columnId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"column",
+												":columnId"
+											],
+											"variable": [
+												{
+													"key": "columnId",
+													"value": "13323277",
+													"description": "(Required) the id of the column to find"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Delete a specific column",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/column/:columnId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"column",
+										":columnId"
+									],
+									"variable": [
+										{
+											"key": "columnId",
+											"value": "13323277",
+											"description": "(Required) the id of the column to delete"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Expected response to a delete request",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/column/:columnId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"column",
+												":columnId"
+											],
+											"variable": [
+												{
+													"key": "columnId",
+													"value": "13323277",
+													"description": "(Required) the id of the column to delete"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Column not found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/column/:columnId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"column",
+												":columnId"
+											],
+											"variable": [
+												{
+													"key": "columnId",
+													"value": "13323277",
+													"description": "(Required) the id of the column to delete"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Add a column",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"columnId\": 70225459,\n    \"boardId\": 19594009,\n    \"columnName\": \"nostrud\",\n    \"columnPriority\": 64\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/column",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"column"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Expected response to create request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"columnId\": 70225459,\n    \"boardId\": 19594009,\n    \"columnName\": \"nostrud\",\n    \"columnPriority\": 64\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/column",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"column"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"columnId\": 70225459,\n \"boardId\": 19594009,\n \"columnName\": \"nostrud\",\n \"columnPriority\": 64\n}"
+						}
+					]
+				},
+				{
+					"name": "Update a column",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"columnId\": 70225459,\n    \"boardId\": 19594009,\n    \"columnName\": \"nostrud\",\n    \"columnPriority\": 64\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/column",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"column"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Expected response to a valid update request",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"columnId\": 70225459,\n    \"boardId\": 19594009,\n    \"columnName\": \"nostrud\",\n    \"columnPriority\": 64\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/column",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"column"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Invalid column Id supplied",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"columnId\": 70225459,\n    \"boardId\": 19594009,\n    \"columnName\": \"nostrud\",\n    \"columnPriority\": 64\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/column",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"column"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Column not found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"columnId\": 70225459,\n    \"boardId\": 19594009,\n    \"columnName\": \"nostrud\",\n    \"columnPriority\": 64\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/column",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"column"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Validation error",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"columnId\": 70225459,\n    \"boardId\": 19594009,\n    \"columnName\": \"nostrud\",\n    \"columnPriority\": 64\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/column",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"column"
+									]
+								}
+							},
+							"status": "Method Not Allowed",
+							"code": 405,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Column info for a specific board",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/column/byBoard/:boardId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"column",
+								"byBoard",
+								":boardId"
+							],
+							"variable": [
+								{
+									"key": "boardId",
+									"value": "13323277",
+									"description": "(Required) the id of the board to find columns against"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Expected response to a request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/column/byBoard/:boardId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"column",
+										"byBoard",
+										":boardId"
+									],
+									"variable": [
+										{
+											"key": "boardId",
+											"value": "13323277",
+											"description": "(Required) the id of the board to find columns against"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"columnId\": 18384709,\n  \"boardId\": -96652903,\n  \"columnName\": \"in exercitation\",\n  \"columnPriority\": 53\n },\n {\n  \"columnId\": -38639009,\n  \"boardId\": 92661464,\n  \"columnName\": \"eu amet\",\n  \"columnPriority\": 86\n }\n]"
+						},
+						{
+							"name": "Board not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/column/byBoard/:boardId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"column",
+										"byBoard",
+										":boardId"
+									],
+									"variable": [
+										{
+											"key": "boardId",
+											"value": "13323277",
+											"description": "(Required) the id of the board to find columns against"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "swimlane",
+			"item": [
+				{
+					"name": "{swimlane Id}",
+					"item": [
+						{
+							"name": "Info for a specific swimlane",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/swimlane/:swimlaneId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"swimlane",
+										":swimlaneId"
+									],
+									"variable": [
+										{
+											"key": "swimlaneId",
+											"value": "13323277",
+											"description": "(Required) the id of the swimlane to find"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Expected response to a request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/swimlane/:swimlaneId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"swimlane",
+												":swimlaneId"
+											],
+											"variable": [
+												{
+													"key": "swimlaneId",
+													"value": "13323277",
+													"description": "(Required) the id of the swimlane to find"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"swimlaneId\": 96536234,\n \"boardId\": 8325820,\n \"swimlaneName\": \"occaecat \",\n \"swimlanePriority\": 73\n}"
+								},
+								{
+									"name": "Swimlane not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/swimlane/:swimlaneId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"swimlane",
+												":swimlaneId"
+											],
+											"variable": [
+												{
+													"key": "swimlaneId",
+													"value": "13323277",
+													"description": "(Required) the id of the swimlane to find"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Delete a specific swimlane",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/swimlane/:swimlaneId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"swimlane",
+										":swimlaneId"
+									],
+									"variable": [
+										{
+											"key": "swimlaneId",
+											"value": "13323277",
+											"description": "(Required) the id of the swimlane to delete"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Expected response to a delete request",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/swimlane/:swimlaneId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"swimlane",
+												":swimlaneId"
+											],
+											"variable": [
+												{
+													"key": "swimlaneId",
+													"value": "13323277",
+													"description": "(Required) the id of the swimlane to delete"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Swimlane not found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/swimlane/:swimlaneId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"swimlane",
+												":swimlaneId"
+											],
+											"variable": [
+												{
+													"key": "swimlaneId",
+													"value": "13323277",
+													"description": "(Required) the id of the swimlane to delete"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Add a swimlane",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"swimlaneId\": 96536234,\n    \"boardId\": 8325820,\n    \"swimlaneName\": \"occaecat \",\n    \"swimlanePriority\": 73\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/swimlane",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"swimlane"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Expected response to create request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"swimlaneId\": 96536234,\n    \"boardId\": 8325820,\n    \"swimlaneName\": \"occaecat \",\n    \"swimlanePriority\": 73\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/swimlane",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"swimlane"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"swimlaneId\": 96536234,\n \"boardId\": 8325820,\n \"swimlaneName\": \"occaecat \",\n \"swimlanePriority\": 73\n}"
+						}
+					]
+				},
+				{
+					"name": "Update a swimlane",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"swimlaneId\": 96536234,\n    \"boardId\": 8325820,\n    \"swimlaneName\": \"occaecat \",\n    \"swimlanePriority\": 73\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/swimlane",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"swimlane"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Expected response to a valid update request",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"swimlaneId\": 96536234,\n    \"boardId\": 8325820,\n    \"swimlaneName\": \"occaecat \",\n    \"swimlanePriority\": 73\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/swimlane",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"swimlane"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Invalid swimlaneId supplied",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"swimlaneId\": 96536234,\n    \"boardId\": 8325820,\n    \"swimlaneName\": \"occaecat \",\n    \"swimlanePriority\": 73\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/swimlane",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"swimlane"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Swimlane not found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"swimlaneId\": 96536234,\n    \"boardId\": 8325820,\n    \"swimlaneName\": \"occaecat \",\n    \"swimlanePriority\": 73\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/swimlane",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"swimlane"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Validation error",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"swimlaneId\": 96536234,\n    \"boardId\": 8325820,\n    \"swimlaneName\": \"occaecat \",\n    \"swimlanePriority\": 73\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/swimlane",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"swimlane"
+									]
+								}
+							},
+							"status": "Method Not Allowed",
+							"code": 405,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Column info for a specific board",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/swimlane/byBoard/:boardId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"swimlane",
+								"byBoard",
+								":boardId"
+							],
+							"variable": [
+								{
+									"key": "boardId",
+									"value": "13323277",
+									"description": "(Required) the id of the board to find swimlanes against"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Expected response to a request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/swimlane/byBoard/:boardId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"swimlane",
+										"byBoard",
+										":boardId"
+									],
+									"variable": [
+										{
+											"key": "boardId",
+											"value": "13323277",
+											"description": "(Required) the id of the board to find swimlanes against"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"swimlaneId\": -1315000,\n  \"boardId\": 45412631,\n  \"swimlaneName\": \"dolore\",\n  \"swimlanePriority\": 82\n },\n {\n  \"swimlaneId\": 14216181,\n  \"boardId\": -42795436,\n  \"swimlaneName\": \"dolore c\",\n  \"swimlanePriority\": 1\n }\n]"
+						},
+						{
+							"name": "Board not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/swimlane/byBoard/:boardId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"swimlane",
+										"byBoard",
+										":boardId"
+									],
+									"variable": [
+										{
+											"key": "boardId",
+											"value": "13323277",
+											"description": "(Required) the id of the board to find swimlanes against"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/",
+			"type": "string"
+		}
+	]
+}
