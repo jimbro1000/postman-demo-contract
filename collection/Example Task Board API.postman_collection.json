@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9bfce334-2099-4139-91b7-51de078ea591",
+		"_postman_id": "c1a00ed5-a013-429f-a438-d56aac35b000",
 		"name": "Example Task Board API",
 		"description": "This is a contract first api example for demonstration\n\nContact Support:\n Name: Owner\n Email: julian.brown@engineering.digital.dwp.gov.uk",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -21,13 +21,21 @@
 										"exec": [
 											"var Ajv = require(\"ajv\"),",
 											"    ajv = new Ajv({logger: console});",
-											"var schema_utils = {};",
+											"const schema = pm.collectionVariables.get(\"board_schema\");",
 											"const response_data = pm.response.json();",
 											"",
-											"const valid = schema_utils.validateBoard(ajv, response_data, true);",
-											"if (valid) {",
-											"    console.log(\"perform test specific assertions\");",
-											"}",
+											"pm.test(\"response schema is valid\", function() {",
+											"    pm.expect(ajv.validate(schema, response_data));",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
 											""
 										],
 										"type": "text/javascript"
@@ -270,10 +278,54 @@
 								}
 							]
 						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"response is ok (200)\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
 					]
 				},
 				{
 					"name": "/board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var Ajv = require(\"ajv\"),",
+									"    ajv = new Ajv({logger: console});",
+									"const schema = pm.collectionVariables.get(\"boards_schema\");",
+									"const response_data = pm.response.json();",
+									"",
+									"pm.test(\"response schema is valid\", function() {",
+									"    pm.expect(ajv.validate(schema, response_data));",
+									"});",
+									"",
+									"pm.test(\"response is ok (200)\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -326,12 +378,39 @@
 				},
 				{
 					"name": "Add a new board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var Ajv = require(\"ajv\"),",
+									"    ajv = new Ajv({logger: console});",
+									"const schema = pm.collectionVariables.get(\"board_schema\");",
+									"const response_data = pm.response.json();",
+									"",
+									"pm.test(\"response schema is valid\", function() {",
+									"    pm.expect(ajv.validate(schema, response_data));",
+									"});",
+									"",
+									"pm.test(\"response is ok (200)\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "*/*"
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -415,12 +494,35 @@
 				},
 				{
 					"name": "Modify an existing board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"response is ok (200)\", function() {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"response body is empty\", function() {",
+									"    pm.expect(pm.response.body === '');",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "*/*"
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1886,7 +1988,8 @@
 					"var board_schema = {",
 					"    \"required\": [",
 					"        \"boardName\",",
-					"        \"boardOwner\"",
+					"        \"boardOwner\",",
+					"        \"boardId\"",
 					"    ],",
 					"    \"properties\": {",
 					"        \"boardId\": {",
@@ -1914,6 +2017,43 @@
 					"",
 					"pm.collectionVariables.set(\"board_schema\", board_schema);",
 					"",
+					"var boards_schema = {",
+					"    \"type\": \"array\",",
+					"    \"items\": [",
+					"        {",
+					"            \"type\": \"object\",",
+					"            \"properties\": {",
+					"                \"boardId\": {",
+					"                    \"$id\": \"#/properties/boardId\",",
+					"                    \"type\": \"integer\"",
+					"                },",
+					"                \"boardName\": {",
+					"                    \"$id\": \"#/properties/boardName\",",
+					"                    \"type\": \"string\",",
+					"                    \"minLength\": 5,",
+					"                    \"maxLength\": 20",
+					"                },",
+					"                \"boardOwner\": {",
+					"                    \"$id\": \"#/properties/boardOwner\",",
+					"                    \"type\": \"string\",",
+					"                    \"minLength\": 5,",
+					"                    \"maxLength\": 30",
+					"                }",
+					"            },",
+					"            \"required\": [",
+					"                \"boardId\",",
+					"                \"boardName\",",
+					"                \"boardOwner\"",
+					"            ]",
+					"        }   ",
+					"    ],",
+					"    \"$id\": \"http://example.org/root.json#\",",
+					"    \"definitions\": {},",
+					"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+					"}",
+					"",
+					"pm.collectionVariables.set(\"boards_schema\", boards_schema);",
+					"",
 					"var column_schema = {",
 					"    \"type\": \"object\",",
 					"    \"properties\" : {",
@@ -1938,7 +2078,7 @@
 					"            \"maximum\": 100,",
 					"        }",
 					"    },",
-					"    \"required\" : [\"boardId\", \"columnName\", \"columnPriority\"],",
+					"    \"required\" : [\"columnId\", \"boardId\", \"columnName\", \"columnPriority\"],",
 					"    \"$id\": \"http://example.org/root.json#\",",
 					"    \"definitions\": {},",
 					"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
@@ -1963,47 +2103,13 @@
 					"            \"type\": \"number\" ",
 					"        }",
 					"    },",
-					"    \"required\" : [\"boardId\", \"swimlaneName\", \"swimlanePriority\"],",
+					"    \"required\" : [\"swimlaneId\", \"boardId\", \"swimlaneName\", \"swimlanePriority\"],",
 					"    \"$id\": \"http://example.org/root.json#\",",
 					"    \"definitions\": {},",
 					"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
 					"};",
 					"",
 					"pm.collectionVariables.set(\"swimlane_schema\", swimlane_schema);",
-					"Object.prototype.validateBoard = function (ajv, data, idRequired) {",
-					"    if (!(idRequired === true)) idRequired = false;",
-					"    let schema = pm.collectionVariables.get(\"board_schema\");",
-					"    if (idRequired) {",
-					"        schema.required.push(\"boardId\");",
-					"    }",
-					"    const result = ajv.validate(schema, data);",
-					"    console.info(result);",
-					"    pm.test('Schema is valid', function() {",
-					"        pm.expect(result, JSON.stringify(ajv.errors)).to.be.true;",
-					"    });",
-					"    // pm.expect(result).to.be.true;",
-					"    return result;",
-					"};",
-					"Object.prototype.validateColumn = function (ajv, data, idRequired) {",
-					"    if (!(idRequired === true)) idRequired = false;",
-					"    let schema = pm.collectionVariables.get(\"column_schema\");",
-					"    if (idRequired) {",
-					"        schema.required.push(\"columnId\");",
-					"    }",
-					"    const result = ajv.validate(schema, data);",
-					"    pm.expect(result).to.be.true;",
-					"    return result;",
-					"};",
-					"Object.prototype.validateSwimlane = function (ajv, data, idRequired) {",
-					"    if (!(idRequired === true)) idRequired = false;",
-					"    let schema = pm.collectionVariables.get(\"swimlane_schema\");",
-					"    if (idRequired) {",
-					"        schema.required.push(\"swimlaneId\");",
-					"    }",
-					"    const result = ajv.validate(schema, data);",
-					"    pm.expect(result).to.be.true;",
-					"    return result;",
-					"};",
 					""
 				]
 			}
@@ -2033,6 +2139,10 @@
 		},
 		{
 			"key": "swimlane_schema",
+			"value": ""
+		},
+		{
+			"key": "boards_schema",
 			"value": ""
 		}
 	]
