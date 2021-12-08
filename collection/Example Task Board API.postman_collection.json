@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d4c7f16a-b0e8-43f7-8f45-9ec48a10d601",
+		"_postman_id": "9bfce334-2099-4139-91b7-51de078ea591",
 		"name": "Example Task Board API",
 		"description": "This is a contract first api example for demonstration\n\nContact Support:\n Name: Owner\n Email: julian.brown@engineering.digital.dwp.gov.uk",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -14,6 +14,26 @@
 					"item": [
 						{
 							"name": "Info for a specific board",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var Ajv = require(\"ajv\"),",
+											"    ajv = new Ajv({logger: console});",
+											"var schema_utils = {};",
+											"const response_data = pm.response.json();",
+											"",
+											"const valid = schema_utils.validateBoard(ajv, response_data, true);",
+											"if (valid) {",
+											"    console.log(\"perform test specific assertions\");",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "GET",
 								"header": [
@@ -35,7 +55,7 @@
 									"variable": [
 										{
 											"key": "boardId",
-											"value": null
+											"value": "1"
 										}
 									]
 								}
@@ -813,6 +833,26 @@
 							"body": "{\n \"code\": 2413984,\n \"message\": \"culpa sint\"\n}"
 						}
 					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -1837,11 +1877,163 @@
 			]
 		}
 	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"var board_schema = {",
+					"    \"required\": [",
+					"        \"boardName\",",
+					"        \"boardOwner\"",
+					"    ],",
+					"    \"properties\": {",
+					"        \"boardId\": {",
+					"            \"$id\": \"#/properties/boardId\",",
+					"            \"type\": \"integer\"",
+					"        },",
+					"        \"boardName\": {",
+					"            \"$id\": \"#/properties/boardName\",",
+					"            \"type\": \"string\",",
+					"            \"minLength\": 5,",
+					"            \"maxLength\": 20",
+					"        },",
+					"        \"boardOwner\": {",
+					"            \"$id\": \"#/properties/boardOwner\",",
+					"            \"type\": \"string\",",
+					"            \"minLength\": 5,",
+					"            \"maxLength\": 30",
+					"        }",
+					"    },",
+					"    \"$id\": \"http://example.org/root.json#\",",
+					"    \"type\": \"object\",",
+					"    \"definitions\": {},",
+					"    \"$schema\": \"http://json-schema.org/draft-07/schema#\"",
+					"};",
+					"",
+					"pm.collectionVariables.set(\"board_schema\", board_schema);",
+					"",
+					"var column_schema = {",
+					"    \"type\": \"object\",",
+					"    \"properties\" : {",
+					"        \"columnId\": { ",
+					"            \"$id\": \"#/properties/columnId\",",
+					"            \"type\": \"number\" ",
+					"        },",
+					"        \"boardId\": { ",
+					"            \"$id\": \"#/properties/boardId\",",
+					"            \"type\": \"number\" ",
+					"        },",
+					"        \"columnName\": { ",
+					"            \"$id\": \"#/properties/columnName\",",
+					"            \"type\": \"string\",",
+					"            \"minLength\": 5,",
+					"            \"maxLength\": 30, ",
+					"        },",
+					"        \"columnPriority\": { ",
+					"            \"$id\": \"#/properties/columnPriority\",",
+					"            \"type\": \"number\",",
+					"            \"minimum\": 0,",
+					"            \"maximum\": 100,",
+					"        }",
+					"    },",
+					"    \"required\" : [\"boardId\", \"columnName\", \"columnPriority\"],",
+					"    \"$id\": \"http://example.org/root.json#\",",
+					"    \"definitions\": {},",
+					"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+					"};",
+					"",
+					"pm.collectionVariables.set(\"column_schema\", column_schema);",
+					"",
+					"var swimlane_schema = {",
+					"    \"type\": \"object\",",
+					"    \"properties\" : {",
+					"        \"swimlaneId\": { ",
+					"            \"type\": \"number\" ",
+					"        },",
+					"        \"boardId\": { ",
+					"            \"type\": \"number\"",
+					"        },",
+					"        \"swimlaneName\": { ",
+					"            \"type\": \"string\" ",
+					"        },",
+					"        \"swimlanePriority\": { ",
+					"            \"$id\": \"#/properties/columnPriority\",",
+					"            \"type\": \"number\" ",
+					"        }",
+					"    },",
+					"    \"required\" : [\"boardId\", \"swimlaneName\", \"swimlanePriority\"],",
+					"    \"$id\": \"http://example.org/root.json#\",",
+					"    \"definitions\": {},",
+					"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+					"};",
+					"",
+					"pm.collectionVariables.set(\"swimlane_schema\", swimlane_schema);",
+					"Object.prototype.validateBoard = function (ajv, data, idRequired) {",
+					"    if (!(idRequired === true)) idRequired = false;",
+					"    let schema = pm.collectionVariables.get(\"board_schema\");",
+					"    if (idRequired) {",
+					"        schema.required.push(\"boardId\");",
+					"    }",
+					"    const result = ajv.validate(schema, data);",
+					"    console.info(result);",
+					"    pm.test('Schema is valid', function() {",
+					"        pm.expect(result, JSON.stringify(ajv.errors)).to.be.true;",
+					"    });",
+					"    // pm.expect(result).to.be.true;",
+					"    return result;",
+					"};",
+					"Object.prototype.validateColumn = function (ajv, data, idRequired) {",
+					"    if (!(idRequired === true)) idRequired = false;",
+					"    let schema = pm.collectionVariables.get(\"column_schema\");",
+					"    if (idRequired) {",
+					"        schema.required.push(\"columnId\");",
+					"    }",
+					"    const result = ajv.validate(schema, data);",
+					"    pm.expect(result).to.be.true;",
+					"    return result;",
+					"};",
+					"Object.prototype.validateSwimlane = function (ajv, data, idRequired) {",
+					"    if (!(idRequired === true)) idRequired = false;",
+					"    let schema = pm.collectionVariables.get(\"swimlane_schema\");",
+					"    if (idRequired) {",
+					"        schema.required.push(\"swimlaneId\");",
+					"    }",
+					"    const result = ajv.validate(schema, data);",
+					"    pm.expect(result).to.be.true;",
+					"    return result;",
+					"};",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "/",
-			"type": "string"
+			"value": "/"
+		},
+		{
+			"key": "board_schema",
+			"value": ""
+		},
+		{
+			"key": "column_schema",
+			"value": ""
+		},
+		{
+			"key": "swimlane_schema",
+			"value": ""
 		}
 	]
 }
